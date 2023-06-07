@@ -1,12 +1,13 @@
 import pandas as pd
-
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
-
 import streamlit as st
 from streamlit_chat import message
+from dotenv import load_dotenv
 import os
-os.environ["OPENAI_API_KEY"] = '{your_api_key}'
+
+# Load environment variables from .env file
+load_dotenv()
 
 if 'prompts' not in st.session_state:
     st.session_state.prompts = []
@@ -26,7 +27,6 @@ st.title(':blue[Yeyu\'s Data Analysis Chatbot] ☕')
 uploaded_file = st.file_uploader("Choose a csv file", type='csv')
 
 if uploaded_file is not None:
-
     csv_data = uploaded_file.read()
     with open(uploaded_file.name, 'wb') as f:
         f.write(csv_data)
